@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Cương Ôn Tập Lịch Sử - Trắc Nghiệm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .exam-info {
+            display: flex;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 10px;
+        }
+        
+        .info-item i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .exam-controls {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .question-counter {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2a5298;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: #2a5298;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1e3c72;
+        }
+        
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .btn-reset {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-reset:hover {
+            background-color: #5a6268;
+        }
+        
+        .questions-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question-item {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question-item:last-child {
+            border-bottom: none;
+        }
+        
+        .question-number {
+            display: inline-block;
+            background-color: #2a5298;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 600;
+            margin-right: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .question-text {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: inline-block;
+            width: calc(100% - 50px);
+        }
+        
+        .options-container {
+            margin-left: 40px;
+        }
+        
+        .option {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: #f8f9fa;
+            border-color: #c1c9d0;
+        }
+        
+        .option.selected {
+            background-color: #e7f0ff;
+            border-color: #2a5298;
+        }
+        
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+        
+        .option-letter {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 600;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .option.selected .option-letter {
+            background-color: #2a5298;
+            color: white;
+        }
+        
+        .option.correct .option-letter {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .option.incorrect .option-letter {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .results-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 6px 15px rgba(42, 82, 152, 0.3);
+        }
+        
+        .score-value {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .score-label {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .results-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .detail-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .detail-value {
+            font-weight: 700;
+            color: #2a5298;
+        }
+        
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .answer-key {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .answer-key h3 {
+            margin-bottom: 15px;
+            color: #2a5298;
+        }
+        
+        .answer-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .answer-item {
+            padding: 8px 12px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .correct-answer {
+            font-weight: 600;
+            color: #28a745;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .exam-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .exam-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .question-text {
+                width: 100%;
+            }
+            
+            .options-container {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ĐỀ CƯƠNG ÔN TẬP LỊCH SỬ</h1>
+            <div class="subtitle">Trắc nghiệm trực tuyến - 60 câu hỏi</div>
+            <div class="exam-info">
+                <div class="info-item">
+                    <i class="fas fa-book"></i>
+                    <span>Môn: Lịch sử Việt Nam</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>60 câu trắc nghiệm</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Thời gian: Không giới hạn</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="content-wrapper">
+            <div class="exam-controls">
+                <div class="question-counter">
+                    <i class="fas fa-list-ol"></i>
+                    <span id="current-question">1</span>/<span id="total-questions">60</span> câu
+                </div>
+                <div class="control-buttons">
+                    <button class="btn btn-reset" id="reset-btn">
+                        <i class="fas fa-redo"></i> Làm lại
+                    </button>
+                    <button class="btn btn-success" id="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Nộp bài
+                    </button>
+                </div>
+            </div>
+            
+            <div class="questions-container" id="questions-container">
+                <!-- Câu hỏi sẽ được tạo động bằng JavaScript -->
+            </div>
+            
+            <div class="results-container" id="results-container">
+                <div class="results-header">
+                    <h2>Kết quả bài làm</h2>
+                    <div class="score-circle">
+                        <div class="score-value" id="score-value">0</div>
+                        <div class="score-label">điểm</div>
+                    </div>
+                    <h3 id="result-message"></h3>
+                </div>
+                
+                <div class="results-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Tổng số câu:</span>
+                        <span class="detail-value" id="total-questions-result">60</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Số câu đúng:</span>
+                        <span class="detail-value" id="correct-answers">0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Số câu sai:</span>
+                        <span class="detail-value" id="wrong-answers">0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Tỷ lệ đúng:</span>
+                        <span class="detail-value" id="accuracy-rate">0%</span>
+                    </div>
+                </div>
+                
+                <div class="answer-key">
+                    <h3><i class="fas fa-key"></i> Đáp án đúng</h3>
+                    <div class="answer-list" id="answer-key">
+                        <!-- Đáp án sẽ được tạo động -->
+                    </div>
+                </div>
+                
+                <div class="result-actions">
+                    <button class="btn btn-primary" id="review-btn">
+                        <i class="fas fa-eye"></i> Xem lại bài làm
+                    </button>
+                    <button class="btn btn-reset" id="try-again-btn">
+                        <i class="fas fa-redo"></i> Làm lại từ đầu
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Đề cương ôn tập môn Lịch sử - Trắc nghiệm trực tuyến</p>
+            <p>© 2023 - Phát triển bởi Hệ thống ôn tập trực tuyến</p>
+        </footer>
+    </div>
+
+    <script>
+        // Đáp án đúng cho 60 câu hỏi
+        const correctAnswers = {
+            1: "C", 2: "C", 3: "A", 4: "B", 5: "D",
+            6: "A", 7: "B", 8: "A", 9: "A", 10: "D",
+            11: "A", 12: "A", 13: "D", 14: "B", 15: "A",
+            16: "B", 17: "A", 18: "C", 19: "B", 20: "D",
+            21: "C", 22: "C", 23: "C", 24: "A", 25: "C",
+            26: "C", 27: "B", 28: "B", 29: "B", 30: "A",
+            31: "A", 32: "A", 33: "B", 34: "A", 35: "B",
+            37: "A", 38: "D", 39: "A", 40: "B", 41: "C",
+            42: "C", 43: "B", 44: "C", 45: "B", 46: "D",
+            47: "A", 48: "A", 49: "B", 50: "C", 51: "A",
+            52: "A", 53: "D", 54: "B", 55: "B", 56: "C",
+            57: "A", 58: "C", 59: "C", 60: "B"
+        };
+
+        // Lấy nội dung câu hỏi từ file
+        const questionContent = `**Câu 1.** Tháng 10-1947, quân Pháp tiến hành chiến dịch tấn công địa bàn nào sau đây?
+**A.** Sài Gòn. **B.** Điện Biên Phủ. **C.** Việt Bắc. **D.** Cao Bằng.
+
+**Câu 2.** Trong những năm 1951 -- 1953, quân dân Việt Nam đã mở chiến dịch quân sự nào sau đây?
+**A.** Việt Bắc. **B.** Biên giới. **C.** Hoà Bình. **D.** Điện Biên Phủ.
+
+**Câu 3.** Chiến dịch Điện Biên Phủ (1954) của quân dân Việt Nam đã
+**A.** đập tan những nỗ lực quân sự của Pháp.
+**B.** buộc Mỹ phải đưa quân vào miền Nam.
+**C.** làm phá sản kế hoạch "đánh nhanh, thắng nhanh" của Pháp.
+**D.** buộc Pháp và Mỹ tham gia đàm phán tại Hội nghị Pa-ri.
+
+**Câu 4.** Cuộc chiến đấu ở các đô thi Bắc vĩ tuyến 16 có ý nghĩa như thế nào?
+A. Đưa lực lượng kháng chiến bước sang giai đoạn chủ động trên chiến trường chính
+B. Bước đầu làm thất bại kế hoạch "đánh nhanh thắng nhanh" của Pháp
+C. Buộc Pháp phải ký Hiệp định Giơ-ne-vơ
+D. Làm thất bại âm mưu bao vây, căn cứ Việt Bắc của Pháp
+
+**Câu 5.** Kế hoạch "đánh nhanh thắng nhanh" của Pháp trong chiến tranh xâm lược Việt Nam (1945 -- 1954) hoàn toàn thất bại sau
+A. cuộc chiến đấu ở các đô thị Bắc vĩ tuyến 16
+B. Chiến dịch Biên giới thu -- đông năm 1950
+C. Chiến dịch Điện Biên Phủ năm 1954
+D. Chiến dịch Việt Bắc thu -- đông năm 1947
+
+**Câu 6.** Từ giữa năm 1953 đến tháng 5-1954, dựa vào viện trợ của Mỹ, thực dân Pháp đã đề ra và thực hiện kế hoạch nào sau đây nhằm kết thúc chiến tranh ở Việt Nam?
+**A.** Na-va. **B.** Do Lát do Tát-xi-nhi. **C.** Mác-san. **D.** Rơ-ve.
+
+**Câu 7.** Một trong những thắng lợi mà nhân dân Việt Nam đã giành được trong cuộc kháng chiến chống Pháp (1945-1954) là
+**A.** chiến thắng An Lão. **B.** chiến thắng Việt Bắc.
+**C.** chiến thắng Cửa Việt. **D.** chiến thắng Vạn Tường.
+
+**Câu 8.** Một trong những nguyên nhân chủ quan dẫn đến thắng lợi của cuộc kháng chiến chống Pháp (1945-1954) là
+**A.** sự lãnh đạo đúng đắn của Đảng. **B.** viện trợ to lớn của Trung Quốc
+**C.** ba nước Đông Dương đoàn kết. **D.** phong trào phản đối chiến tranh.
+
+**Câu 9.** Cuộc kháng chiến chống Mỹ, cứu nước (1954-1975) của nhân dân Việt Nam diễn ra trong bối cảnh lịch sử nào sau đây? 
+**A.** Đất nước tạm thời bị chia cắt. **B.** Miền Bắc hoàn thành công nghiệp hóa. 
+**C.** Xu thế toàn cầu hóa xuất hiện. **D.** Cuộc Chiến tranh lạnh đã kết thúc. 
+
+**Câu 10.** Trong những năm 1961 -- 1965, Mỹ tiến hành chiến lược chiến tranh nào sau đây ở miền Nam Việt Nam?
+**A.** Chiến tranh cục bộ. **C.** Việt Nam hoá chiến tranh.
+**B.** Chiến tranh đơn phương. **D.** Chiến tranh đặc biệt.
+
+**Câu 11.** Thắng lợi nào của quân và dân Việt Nam đã buộc Mỹ phải đến đàm phán tại hội nghị Paris?
+**A.** Mậu Thân. **B.** Vạn Tường. **C.** Núi Thành. **D.** Phước Long.
+
+**Câu 12.** Trong giai đoạn 1954 -- 1958 của cuộc kháng chiến chống Mỹ, cứu nước, nhân dân miền Nam tập trung vào thực hiện nhiệm vụ nào sau đây?
+**A.** đấu tranh chống chế độ Mỹ -- Diệm, giữ gìn và phát triển lực lượng cách mạng.
+**B.** kết hợp đấu tranh chính trị hoà bình và khởi nghĩa vũ trang giành chính quyền.
+**C.** chuyển từ đấu tranh chính trị tiến lên Đồng khởi trên khắp các tỉnh miền Nam.
+**D.** đấu tranh chính trị hoà bình để giữ gìn lực lượng, tổ chức tổng tuyển cử tự do.
+
+**Câu 13.** Cuộc kháng chiến chống Mỹ, cứu nước của Việt Nam diễn ra trong bối cảnh nào sau đây?
+**A.** Hoà hoãn Đông -- Tây là xu thế chủ đạo trong quan hệ quốc tế.
+**B.** Trật tự thế giới hai cực I-an-ta từng bước hình thành.
+**C.** Các cuộc chiến tranh cục bộ đã chấm dứt.
+**D.** Chiến tranh lạnh diễn ra ngày càng căng thẳng.
+
+**Câu 14.** Sau thất bại của chiến lược Chiến tranh cục bộ (1965 -- 1968) ở miền Nam Việt Nam, Mỹ chuyển sang áp dụng chiến lược chiến tranh nào sau đây?
+**A.** Chiến tranh đặc biệt. **C.** Chiến tranh đơn phương.
+**B.** Việt Nam hoá chiến tranh. **D.** Chiến tranh đặc biệt tăng cường.
+
+**Câu 15.** Chiến thắng nào của quân dân miền Nam đã buộc Mỹ phải tuyên bố "Mỹ hoá" trở lại cuộc chiến tranh xâm lược ở Việt Nam?
+**A.** Cuộc Tiến công chiến lược năm 1972. **B.** Chiến thắng Vạn Tường năm 1965.
+**C.** Cuộc Tổng tiến công và nổi dậy năm 1968. **D.** Chiến thắng Đường 14 -- Phước Long (1975).
+
+**Câu 16.** Trong thời kì 1954 -- 1975, cách mạng Việt Nam có nhiệm vụ hàng đầu là
+**A.** đánh đuổi đế quốc Pháp. **C.** xây dựng chủ nghĩa xã hội.
+**B.** thống nhất đất nước. **D.** cải cách ruộng đất
+
+**Câu 17.** Một trong những hành động thực thi chủ quyền của Chính phủ Việt Nam đối với quần đảo Trường Sa và Hoàng Sa là
+**A.** đưa lực lượng ra thực thi chủ quyền. **B.** xây dựng các sân bay quốc tế lớn.
+**C.** đã xây dựng nhiều căn cứ quân sự. **D.** cho Mỹ thuê lại các bến cảng ở đáo.
+
+**Câu 18.** Sau khi lên nắm quyền (4/1975) chính quyền Pôn Pốt đã có hành động nào sau đây?
+**A.** Đi thăm Mỹ để mở rộng quan hệ đối ngoại cho Campuchia.
+**B.** Ủng hộ hết lòng cho công cuộc xây dựng đất nước Việt Nam.
+**C.** Phát động chiến tranh xâm lược biên giới Tây Nam Việt Nam.
+**D.** Liên kết với các nước Đông Nam Á để chống lại Trung Quốc.
+
+**Câu 19.** Nguyên nhân chủ quan quyết định thắng lợi của hai cuộc chiến tranh bảo vệ biên giới phía Bắc Việt Nam năm 1979 là
+**A.** quân đội Trung Quốc còn yếu **B.** truyền thống dân tộc, yêu nước.
+**C.** sự ủng hộ giúp đỡ của quốc tế **D.** đoàn kết ba nước Đông Dương.
+
+**Câu 20.** Một trong những hành động khiêu khích, xâm phạm lãnh thổ của chính quyền Pôn-pốt đối với Việt Nam sau ngày 30/4/1975 là
+**A.** tổ chức cho người Khơ-me ở Việt Nam biểu tình.
+**B.** phái biệt kích để xâm nhập vào Hà Nội phá hoại.
+**C.** cho máy bay thả bom để phong tỏa cửa sông lớn.
+**D.** xâm nhập vào vùng biên giới trên đất liền Việt Nam.
+
+**Câu 21.** Sau khi Trung Quốc tuyên bố rút quân (5/3/1979), tình hình biên giới Việt Trung như thế nào?
+**A.** Trở lại bình thường **B.** Đã yên bình trở lại
+**C.** Tiếp tục căng thẳng. **D.** Liên Xô can thiệp.
+
+**Câu 22.** Sau năm 1975, nước Cộng hoà xã hội chủ nghĩa Việt Nam quản lí toàn bộ lãnh thổ đất nước, trong đó bao gồm
+**A.** tất cả các đảo trên vùng Biển Đông. **B.** tất cả các đảo và quần đảo thuộc vịnh Thái Lan.
+**C.** quần đảo Hoàng Sa và Trường Sa. **D.** các đặc khu kinh tế trên bán đảo Đông Dương.
+
+**Câu 23.** Trong quá trình bảo vệ chủ quyền quốc gia ở Biển Đông, Việt Nam đã luôn kiên định con đường
+**A.** bảo vệ vững chắc chủ quyền và lợi ích khu vực.
+**B.** đấu tranh bằng mọi biện pháp, không đàm phán
+**C.** đấu tranh bằng các biện pháp phù hợp với luật pháp quốc tế.
+**D.** bảo vệ hoà bình, phù hợp với luật pháp khu vực và quốc tế.
+
+**Câu 24.** Năm 1950, Đảng và Chính phủ Việt Nam quyết định mở chiến dịch Biên giới **không** nhằm mục đích nào sau đây?
+**A.** Buộc Pháp phải ký Hiệp định Giơ-ne-vơ **B.** Tiêu hao sinh lực quân Pháp
+**C.** Khai thông biên giới Việt -- Trung **D.** Bảo vệ căn cứ địa Việt Bắc
+
+**Câu 25.** Một trong những điểm khác biệt giữa chiến dịch Biên giới thu -- đông (1950) với chiến dịch Việt Bắc thu -- đông (1947) của quân dân Việt Nam là
+**A.** tinh thần, quyết tâm của dân tộc. **B.** có sự chi viện của hậu phương.
+**C.** được sự chi viện của quốc tế. **D.** nghệ thuật chiến tranh nhân dân.
+
+**Câu 26.** Trong cuộc kháng chiến chống Pháp (1945 -- 1954), để đối phó với kế hoạch Na-va, quân đội Việt Nam **không** có hoạt động nào sau đây?
+**A.** Mở chiến dịch Thượng Lào **B.** Mở chiến dịch Bắc Tây Nguyên
+**C.** Mở chiến dịch Hồ Chí Minh **D.** Mở chiến dịch Tây Bắc
+
+**Câu 27.** Trong cuộc kháng chiến chống Pháp của nhân dân Việt Nam (1946 -- 1954), chiến dịch Biên giới thu -- đông năm 1950 **không** có ý nghĩa nào sau đây?
+**A.** Tiêu hao một phần sinh lực quân Pháp
+**B.** Buộc Pháp chuyển từ đánh nhanh thắng nhanh sang đánh lâu dài
+**C.** Khai thông biên giới Việt -- Trung,
+**D.** Đưa lực lượng quân đội Việt Nam chuyển sang giai đoạn chủ động trên chiến trường chính
+
+**Câu 28.** Nội dung nào thể hiện bước phát triển mới về quân sự trong cuộc kháng chiến chống Pháp của dân tộc Việt Nam giai đoạn từ 1951 -- 1953?
+**A.** Đánh bại kế hoạch Na-va của thực dân Pháp
+**B.** Mở các chiến dịch giữ vững quyền chủ động trên chiến trường chính
+**C.** Phản công quân Pháp giành thắng lợi trong chiến dịch Việt Bắc
+**D.** Đánh bại kế hoạc Rơ-ve của thực dân Pháp
+
+**Câu 29.** Một trong những điểm tương đồng về kết quả của chiến dịch Việt Bắc (1947), Biên Giới (1950) và Điện Biên Phủ (1954) là
+**A.** giành quyền chủ động trên chiến trường. **B.** tiêu diệt được một bộ phận sinh lực địch.
+**C.** mở rộng căn cứ địa địa ở Liên khu Năm. **D.** tạo điều kiện cho đấu tranh ngoại giao.
+
+**Câu 30.** Sự kiện nào sau đây trong giai đoạn 1954 -- 1960 đánh dấu bước phát triển nhảy vọt của cách mạng miền Nam?
+**A.** Phong trào Đồng khởi. **C.** Phong trào phá ấp chiến lược.
+**B.** Phong trào chống phá bình định. **D.** Phong trào "Ba sẵn sàng".
+
+**Câu 31.** Một trong những điểm khác biệt cơ bản giữa chiến lược Chiến tranh cục bộ (1965-1968) với chiến lược Chiến tranh đặc biệt (1961-1965) của Mỹ thực hiện ở miền Nam Việt Nam là
+**A.** lực lượng Mỹ trực tiếp tham chiến. **B.** sử dụng phương tiện hiện đại.
+**C.** sử dụng lực lượng cố vấn quân sự Mỹ. **D.** dựa vào chính quyền tay sai.
+
+**Câu 32.** Nội dung nào sau đây phản ánh đúng hoạt động bảo vệ chủ quyền của Việt Nam năm 1988?
+**A.** Chiến đấu chống lại cuộc tấn công xâm lược của Trung Quốc trên đảo Gạc Ma.
+**B.** Tổ chức chiến đấu chống quân xâm lược ở biên giới phía Tây Nam và phía Bắc.
+**C.** Phối hợp với quân dân Cam-pu-chia đẩy mạnh cuộc đấu tranh chống phát xít Nhật.
+**D.** Phản đối Trung Quốc đưa dàn khoan Hải Dương -- 981 đến vùng biển Việt Nam.
+
+**Câu 33.** Nội dung nào sau đây phản ánh đúng tình hình quan hệ Việt - Trung từ giữa năm 1975,
+**A.** Vẫn duy trì rất tốt đẹp. **B.** Dần trở nên căng thẳng.
+**C.** Chuyển sang đối đầu. **D.** Trung Quốc xâm lược.
+
+**Câu 34.** Bài học được rút ra từ các cuộc kháng chiến bảo vệ Tổ quốc từ năm 1945 đến nay vẫn có giá trị to lớn đối với công cuộc xây dựng đất nước hiện nay là
+**A.** tăng cường khối đại đoàn kết toàn dân. **B.** liên minh chặt chẽ với Liên Xô, Trung Quốc.
+**C.** gia nhập vào các khối liên minh quân sự. **D.** thiết lập quan hệ chiến lược với các nước.
+
+**Câu 35.** Cuộc kháng chiến chống Pháp (1945 -- 1954) và cuộc kháng chiến chống Mỹ (1954 -- 1975) của Việt Nam diễn ra trong bối cảnh
+**A.** Phát xít Nhật nhảy vào Đông Dương
+**B.** Chịu sự tác động của chiến tranh lạnh
+**C.** Đất nước tạm thời bị chia cắt thành hai miền Bắc - Nam
+**D.** Chính quyền dân chủ nhân dân được gây dựng trong cả nước
+
+**Câu 37.** Thực hiện cuộc chiến tranh phá hoại miền Bắc Việt Nam lần 2 (1969 -- 1972), chính quyền Mỹ nhằm mục tiêu nào khác so với cuộc chiến tranh phá hoại lần l (1964-1968)?
+**A.** Tạo sức ép với Việt Nam trên bàn đàm phán ở Hội nghị Pa-ri.
+**B.** Ngăn chặn sự chi viện của miền Bắc cho cách mạng miền Nam.
+**C.** Làm lung lay ý chí quyết tâm chống Mỹ, cứu nước của nhân dân Việt Nam.
+**D.** Chống phá công cuộc xây dựng chủ nghĩa xã hội ở miền Bắc.
+
+**Câu 38.** Nội dung phản ánh **không** đúng tình hình của mối quan hệ Việt-Trung từ giữa năm 1975 là Trung Quốc
+**A.** chấm dứt viện trợ kinh tế. **B.** rút các chuyên gia về nước.
+**C.** xâm phạm khu vực biên giới. **D.** ủng hộ Việt Nam toàn diện.
+
+**Câu 39.** Các hoạt động đấu tranh bảo vệ, thực thi chủ quyền và các lợi ích hợp pháp của nước Cộng hoà xã hội chủ nghĩa Việt Nam ở Biển Đông **không** bao gồm nội dung nào sau đây?
+**A.** Từ chối tham gia Công ước của Liên hợp quốc về Luật biển.
+**B.** Thành lập các huyện đảo Trường Sa và Hoàng Sa.
+**C.** Tổ chức nghiên cứu để cung cấp các bằng chứng về chủ quyền.
+**D.** Kiên quyết đấu tranh với các hoạt động vi phạm chủ quyền.
+
+**Câu 40.** Các cuộc đấu tranh bảo vệ Tổ quốc từ năm 1945 để lại bài học kinh nghiệm nào sau đây cho công cuộc bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa?
+**A.** Phát huy yếu tố ngoại lực làm nhân tố quyết định sức mạnh bảo vệ Tổ quốc.
+**B.** Kết hợp sức mạnh dân tộc và sức mạnh thời đại, kết hợp xây dựng và bảo vệ.
+**C.** Luôn đẩy mạnh các hoạt động ngoại giao để mở đường cho đấu tranh quân sự.
+**D.** Tăng cường sức mạnh quân sự là biện pháp duy nhất có thể bảo vệ Tổ quốc.
+
+**Câu 41.** Sự kiện nào sau đây đã mở ra thời cơ tiến công chiến lược giải phóng hoàn toàn Miền Nam Việt Nam?
+**A.** Chiến thắng Đường 14 -- Phước Long (1-1975). **C.** Chiến dịch Tây Nguyên (3-1975).
+**B.** Trận "Điện Biên Phủ trên không" (1972). **D.** Chiến dịch Huế -- Đà Nẵng (3-1975)
+
+**Câu 42.** Trong công cuộc bảo vệ chủ quyền biển, đảo của Tổ quốc Việt Nam hiện nay, có thể vận dụng bài học kinh nghiệm lịch sử nào sau đây?
+**A.** Trong quá trình đàm phán, tuyệt đối không nhân nhượng đối phương.
+**B.** Lấy đấu tranh quân sự làm chủ đạo, kết hợp với đấu tranh ngoại giao.
+**C.** Trong mọi hoàn cảnh, nắm vững quan điểm "dĩ bất biến, ứng vạn biến".
+**D.** Chỉ sử dụng biện pháp hoà bình khi nhún nhường không có kết quả.
+
+**Câu 43.** Nội dung nào **không** phản ánh đúng bối cảnh diễn ra cuộc kháng chiến chống Pháp của nhân dân Việt Nam (1946 -- 1954)?
+A. Nước Việt Nam Dân chủ Cộng hòa gặp vô vàn khó khăn
+B. Chế độ thực dân phong kiến đè nén dân dân
+C. Phong trào giải phóng dân tộc ở các thuộc địa trên thế giới dâng cao
+D. Nhân dân Việt Nam đã lên làm chủ chính quyền
+
+**Câu 44.** Nội dung nào **không** phản ánh đúng bối cảnh quốc tế khi Đảng và Chính phủ Việt Nam phát động toàn quốc kháng chiến chống Pháp năm 1946?
+A. Chủ nghĩa xã hội đang dần trở thành hệ thống trên thế giới
+B. Trật tự hai cực Ianta hình thành chi phối quan hệ quốc tế
+C. Chủ nghĩa phát xít ra đời và nguy cơ chiến tranh thế giới bùng nổ
+D. Nhân dân các nước tư bản phản đối chiến tranh
+
+**Câu 45.** Cuộc chiến đấu ở các đô thi Bắc vĩ tuyến 16 có ý nghĩa như thế nào?
+A. Đưa lực lượng kháng chiến bước sang giai đoạn chủ động trên chiến trường chính
+B. Bước đầu làm thất bại kế hoạch "đánh nhanh thắng nhanh" của Pháp
+C. Buộc Pháp phải ký Hiệp định Giơ-ne-vơ
+D. Làm thất bại âm mưu bao vây, căn cứ Việt Bắc của Pháp
+
+**Câu 46.** Kế hoạch "đánh nhanh thắng nhanh" của Pháp trong chiến tranh xâm lược Việt Nam (1945 -- 1954) hoàn toàn thất bại sau
+A. cuộc chiến đấu ở các đô thị Bắc vĩ tuyến 16
+B. Chiến dịch Biên giới thu -- đông năm 1950
+C. Chiến dịch Điện Biên Phủ năm 1954
+D. Chiến dịch Việt Bắc thu -- đông năm 1947
+
+**Câu 47.** Năm 1950, Đảng và Chính phủ Việt Nam quyết định mở chiến dịch Biên giới **không** nhằm mục đích nào sau đây?
+A. Buộc Pháp phải ký Hiệp định Giơ-ne-vơ
+B. Tiêu hao sinh lực quân Pháp
+C. Khai thông biên giới Việt - Trung
+D. Bảo vệ căn cứ địa Việt Bắc
+
+**Câu 48.** Chính quyền Sài Gòn có thái độ như thế nào sau Hiệp định Pa-ri (1973)?
+A. Phá hoại Hiệp định Pa-ri, xâm lấn vùng giải phóng
+B. Tiếp tục đàm phán với quân giải phóng
+C. Chấp nhận những điều khoản của Hiệp định Pa-ri
+D. Nhanh chóng đầu hàng quân giải phóng
+
+**Câu 49.** Một trong những nhiệm vụ của quân dân miền Nam Việt Nam trong giai đoạn 1973 -- 1975 là
+A. chống chiến lược "Chiến tranh đặc biệt" của Mỹ
+B. chống các cuộc hành quân "bình định -- lấn chiếm" của quân đội Sài Gòn
+C. chống thực dân Pháp và phát xít Nhật
+D. xây dựng cơ sở vật chất -- kỹ thuật của chủ nghĩa xã hội
+
+**Câu 50.** Chiến thắng Đường 14 -- Phước Long (6/1/1976) của quân dân miền Nam Việt Nam **không** có ý nghĩa nào sau đây?
+A. Thăm dò được thực lực quân đội Sài Gòn
+B. Thăm dò được phản ứng của Mỹ
+C. Đưa cách mạng miền Nam từ thế giữ gìn lực lượng sang thế tiến công
+D. Củng cố thêm quyết tâm giải phóng miền Nam trong năm 1975 của Bộ Chính trị
+
+**Câu 51.** Cuộc Tổng tiến công và nổi dậy Xuân 1975 không trải qua chiến dịch nào sau đây?
+A. Chiến dịch Hồ Chí Minh
+B. Chiến dịch Điện Biên Phủ
+C. Chiến dịch Huế - Đà Nẵng
+D. Chiến dịch Tây Nguyên
+
+**Câu 52.** Sau năm 1975, nhân dân Việt Nam tiến hành cuộc đấu tranh bảo vệ Tổ quốc ở vùng biên giới Tây Nam chống lại kẻ thù nào sau đây?
+A. Quân Pôn Pốt. B. Đế quốc Mỹ. C. Thực dân Pháp. D. Phát xít Nhật.
+
+**Câu 53.** Trong cuộc chiến đấu bảo vệ ở Tổ quốc vùng biên giới phía Bắc (1979 -- 1989), quân dân Việt Nam phải đối phó chống lại âm mưu nào sau đây của đối phương?
+A. Hoa quân nhập Việt. C. Giành đất, dành dân.
+B. Chinh phục từng gói nhỏ. D. Đánh nhanh, thắng nhanh.
+
+**Câu 54.** Địa bàn nào sau đây là một trong những mặt trận quyết liệt nhất trong cuộc chiến đấu bảo vệ Tổ quốc ở vùng biên giới phía Bắc (1979 -- 1989) của quân dân Việt Nam?
+A. Thổ Chu. B. Vị Xuyên. C. Tây Ninh. D. Hà Tiên.
+
+**Câu 55.** Trong việc tiến công truy kích quân đội Khơ-me Đỏ đến Thủ đô Phnôm Pênh (Cam-pu-chia), quân dân Việt Nam đã thực hiện
+A. chủ trương đánh chắc, tiến chắc. C. chủ trương đánh điểm, diệt viện
+B. quyền tự vệ chính đáng. D. quyền phòng thủ trên biển.
+
+**Câu 56.** Sau năm 1975, nước Cộng hoà xã hội chủ nghĩa Việt Nam quản lí toàn bộ lãnh thổ đất nước, trong đó bao gồm
+A. tất cả các đảo trên vùng Biển Đông. B. tất cả các đảo và quần đảo thuộc vịnh Thái Lan.
+C. quần đảo Hoàng Sa và Trường Sa. D. các đặc khu kinh tế trên bán đảo Đông Dương.
+
+**Câu 57.** Một trong những hành động thực thi chủ quyền của Chính phủ Việt Nam đối với quần đảo Trường Sa và Hoàng Sa là
+**A.** đưa lực lượng ra thực thi chủ quyền. **B.** xây dựng các sân bay quốc tế lớn.
+**C.** đã xây dựng nhiều căn cứ quân sự. **D.** cho Mỹ thuê lại các bến cảng ở đáo.
+
+**Câu 58.** Sau khi lên nắm quyền (4/1975) chính quyền Pôn Pốt đã có hành động nào sau đây?
+**A.** Đi thăm Mỹ để mở rộng quan hệ đối ngoại cho Campuchia.
+**B.** Ủng hộ hết lòng cho công cuộc xây dựng đất nước Việt Nam.
+**C.** Phát động chiến tranh xâm lược biên giới Tây Nam Việt Nam.
+**D.** Liên kết với các nước Đông Nam Á để chống lại Trung Quốc.
+
+**Câu 59.** Sau Đại thắng mùa Xuân năm 1975, công cuộc xây dựng và bảo vệ Tổ quốc ở Việt Nam có thuận lợi cơ bản nào sau đây?
+A. Đất nước đã phát triển, Việt Nam trở thành nước có thu nhập cao.
+B. Xu thế hoà hoãn Đông -- Tây diễn ra, thế giới không còn xung đột.
+C. Đất nước đã thống nhất, cùng tiến lên xây dựng chủ nghĩa xã hội.
+D. Các nước đế quốc đã từ bỏ âm mưu chống phá dân tộc Việt Nam.
+
+**Câu 60.** Địa bàn nào sau đây là một trong những mặt trận quyết liệt nhất trong cuộc chiến đấu bảo vệ Tổ quốc ở vùng biên giới phía Bắc (1979 -- 1989) của quân dân Việt Nam?
+A. Thổ Chu. B. Vị Xuyên. C. Tây Ninh. D. Hà Tiên.`;
+
+        // Biến toàn cục
+        let userAnswers = {};
+        let questionsData = [];
+
+        // Hàm phân tích câu hỏi từ nội dung
+        function parseQuestions(content) {
+            const questions = [];
+            const questionRegex = /\*\*Câu\s+(\d+)\.\*\*([\s\S]*?)(?=\*\*Câu\s+\d+\.\*\*|$)/g;
+            let match;
+            
+            while ((match = questionRegex.exec(content)) !== null) {
+                const number = parseInt(match[1]);
+                const text = match[2].trim();
+                
+                // Tách các đáp án
+                const options = [];
+                const optionRegex = /\*\*([A-D])\.\*\*\s*([^\*]+)/g;
+                let optionMatch;
+                
+                while ((optionMatch = optionRegex.exec(text)) !== null) {
+                    options.push({
+                        letter: optionMatch[1],
+                        text: optionMatch[2].trim()
+                    });
+                }
+                
+                // Lấy phần câu hỏi (loại bỏ đáp án)
+                let questionText = text;
+                options.forEach(opt => {
+                    questionText = questionText.replace(`**${opt.letter}.** ${opt.text}`, '');
+                });
+                questionText = questionText.trim();
+                
+                questions.push({
+                    number,
+                    text: questionText,
+                    options
+                });
+            }
+            
+            return questions;
+        }
+
+        // Hàm hiển thị câu hỏi
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            
+            questionsData.forEach(question => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question-item';
+                questionElement.id = `question-${question.number}`;
+                
+                let optionsHTML = '';
+                question.options.forEach(option => {
+                    const isSelected = userAnswers[question.number] === option.letter;
+                    optionsHTML += `
+                        <div class="option ${isSelected ? 'selected' : ''}" data-question="${question.number}" data-option="${option.letter}">
+                            <div class="option-letter">${option.letter}</div>
+                            <div class="option-text">${option.text}</div>
+                        </div>
+                    `;
+                });
+                
+                questionElement.innerHTML = `
+                    <div class="question-number">${question.number}</div>
+                    <div class="question-text">${question.text}</div>
+                    <div class="options-container">
+                        ${optionsHTML}
+                    </div>
+                `;
+                
+                container.appendChild(questionElement);
+            });
+            
+            // Thêm sự kiện click cho các đáp án
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionNum = parseInt(this.getAttribute('data-question'));
+                    const optionLetter = this.getAttribute('data-option');
+                    
+                    // Xóa lựa chọn trước đó cho câu hỏi này
+                    document.querySelectorAll(`.option[data-question="${questionNum}"]`).forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Thêm lựa chọn mới
+                    this.classList.add('selected');
+                    
+                    // Lưu đáp án người dùng chọn
+                    userAnswers[questionNum] = optionLetter;
+                    
+                    // Cập nhật số câu đã làm
+                    updateProgress();
+                });
+            });
+            
+            // Cập nhật tiến độ
+            updateProgress();
+        }
+
+        // Hàm cập nhật tiến độ
+        function updateProgress() {
+            const answeredCount = Object.keys(userAnswers).length;
+            document.getElementById('current-question').textContent = answeredCount;
+        }
+
+        // Hàm nộp bài
+        function submitExam() {
+            const answeredCount = Object.keys(userAnswers).length;
+            
+            if (answeredCount < questionsData.length) {
+                if (!confirm(`Bạn mới trả lời ${answeredCount}/${questionsData.length} câu. Bạn có chắc chắn muốn nộp bài không?`)) {
+                    return;
+                }
+            }
+            
+            // Tính điểm
+            let correctCount = 0;
+            questionsData.forEach(question => {
+                const userAnswer = userAnswers[question.number];
+                const correctAnswer = correctAnswers[question.number];
+                
+                if (userAnswer === correctAnswer) {
+                    correctCount++;
+                }
+            });
+            
+            // Tính điểm (thang điểm 10)
+            const score = (correctCount / questionsData.length * 10).toFixed(1);
+            const accuracy = ((correctCount / questionsData.length) * 100).toFixed(1);
+            
+            // Hiển thị kết quả
+            document.getElementById('score-value').textContent = score;
+            document.getElementById('correct-answers').textContent = correctCount;
+            document.getElementById('wrong-answers').textContent = questionsData.length - correctCount;
+            document.getElementById('accuracy-rate').textContent = `${accuracy}%`;
+            document.getElementById('total-questions-result').textContent = questionsData.length;
+            
+            // Hiển thị thông báo kết quả
+            let message = '';
+            if (parseFloat(score) >= 8) {
+                message = 'Xuất sắc! Bạn có kiến thức lịch sử rất tốt!';
+            } else if (parseFloat(score) >= 6.5) {
+                message = 'Khá tốt! Hãy ôn tập thêm một chút nữa!';
+            } else if (parseFloat(score) >= 5) {
+                message = 'Đạt yêu cầu! Cần ôn tập nhiều hơn!';
+            } else {
+                message = 'Cần cố gắng nhiều hơn! Hãy ôn tập kỹ hơn!';
+            }
+            document.getElementById('result-message').textContent = message;
+            
+            // Hiển thị đáp án đúng
+            renderAnswerKey();
+            
+            // Hiển thị kết quả, ẩn câu hỏi
+            document.getElementById('questions-container').style.display = 'none';
+            document.getElementById('results-container').style.display = 'block';
+            
+            // Cuộn lên đầu trang
+            window.scrollTo(0, 0);
+        }
+
+        // Hàm hiển thị đáp án đúng
+        function renderAnswerKey() {
+            const container = document.getElementById('answer-key');
+            container.innerHTML = '';
+            
+            questionsData.forEach(question => {
+                const userAnswer = userAnswers[question.number];
+                const correctAnswer = correctAnswers[question.number];
+                const isCorrect = userAnswer === correctAnswer;
+                
+                const answerItem = document.createElement('div');
+                answerItem.className = 'answer-item';
+                answerItem.innerHTML = `
+                    <span>Câu ${question.number}:</span>
+                    <span class="correct-answer">${correctAnswer}</span>
+                    <span>${isCorrect ? '✓' : '✗'}</span>
+                `;
+                
+                container.appendChild(answerItem);
+            });
+        }
+
+        // Hàm làm lại bài
+        function resetExam() {
+            if (confirm('Bạn có chắc chắn muốn làm lại từ đầu? Tất cả câu trả lời sẽ bị xóa.')) {
+                userAnswers = {};
+                renderQuestions();
+                
+                // Hiển thị lại phần câu hỏi, ẩn kết quả
+                document.getElementById('questions-container').style.display = 'block';
+                document.getElementById('results-container').style.display = 'none';
+            }
+        }
+
+        // Hàm xem lại bài làm
+        function reviewExam() {
+            // Hiển thị câu hỏi với đáp án đúng/sai
+            questionsData.forEach(question => {
+                const questionElement = document.getElementById(`question-${question.number}`);
+                const optionsContainer = questionElement.querySelector('.options-container');
+                
+                // Xóa tất cả các option hiện tại
+                optionsContainer.innerHTML = '';
+                
+                // Thêm lại các option với màu sắc đúng/sai
+                question.options.forEach(option => {
+                    const isSelected = userAnswers[question.number] === option.letter;
+                    const isCorrect = correctAnswers[question.number] === option.letter;
+                    
+                    let className = 'option';
+                    if (isCorrect) {
+                        className += ' correct';
+                    } else if (isSelected && !isCorrect) {
+                        className += ' incorrect';
+                    }
+                    
+                    optionsContainer.innerHTML += `
+                        <div class="${className}" data-question="${question.number}" data-option="${option.letter}">
+                            <div class="option-letter">${option.letter}</div>
+                            <div class="option-text">${option.text}</div>
+                        </div>
+                    `;
+                });
+            });
+            
+            // Hiển thị lại phần câu hỏi, ẩn kết quả
+            document.getElementById('questions-container').style.display = 'block';
+            document.getElementById('results-container').style.display = 'none';
+            
+            // Cuộn lên đầu trang
+            window.scrollTo(0, 0);
+        }
+
+        // Khởi tạo khi trang được tải
+        document.addEventListener('DOMContentLoaded', function() {
+            // Phân tích câu hỏi từ nội dung
+            questionsData = parseQuestions(questionContent);
+            
+            // Hiển thị tổng số câu hỏi
+            document.getElementById('total-questions').textContent = questionsData.length;
+            document.getElementById('total-questions-result').textContent = questionsData.length;
+            
+            // Hiển thị câu hỏi
+            renderQuestions();
+            
+            // Gán sự kiện cho các nút
+            document.getElementById('submit-btn').addEventListener('click', submitExam);
+            document.getElementById('reset-btn').addEventListener('click', resetExam);
+            document.getElementById('review-btn').addEventListener('click', reviewExam);
+            document.getElementById('try-again-btn').addEventListener('click', resetExam);
+        });
+    </script>
+</body>
+</html>
