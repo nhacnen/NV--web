@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Cương Ôn Tập Lịch Sử - Trắc Nghiệm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .exam-info {
+            display: flex;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 10px;
+        }
+        
+        .info-item i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .exam-controls {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .question-counter {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2a5298;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: #2a5298;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1e3c72;
+        }
+        
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .btn-reset {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-reset:hover {
+            background-color: #5a6268;
+        }
+        
+        .questions-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question-item {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question-item:last-child {
+            border-bottom: none;
+        }
+        
+        .question-number {
+            display: inline-block;
+            background-color: #2a5298;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 600;
+            margin-right: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .question-text {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: inline-block;
+            width: calc(100% - 50px);
+        }
+        
+        .options-container {
+            margin-left: 40px;
+        }
+        
+        .option {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: #f8f9fa;
+            border-color: #c1c9d0;
+        }
+        
+        .option.selected {
+            background-color: #e7f0ff;
+            border-color: #2a5298;
+        }
+        
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+        
+        .option-letter {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 600;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .option.selected .option-letter {
+            background-color: #2a5298;
+            color: white;
+        }
+        
+        .option.correct .option-letter {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .option.incorrect .option-letter {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .results-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 6px 15px rgba(42, 82, 152, 0.3);
+        }
+        
+        .score-value {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .score-label {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .results-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .detail-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .detail-value {
+            font-weight: 700;
+            color: #2a5298;
+        }
+        
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .answer-key {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .answer-key h3 {
+            margin-bottom: 15px;
+            color: #2a5298;
+        }
+        
+        .answer-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .answer-item {
+            padding: 8px 12px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .correct-answer {
+            font-weight: 600;
+            color: #28a745;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .exam-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .exam-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .question-text {
+                width: 100%;
+            }
+            
+            .options-container {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ĐỀ CƯƠNG ÔN TẬP LỊCH SỬ</h1>
+            <div class="subtitle">Trắc nghiệm trực tuyến - 60 câu hỏi</div>
+            <div class="exam-info">
+                <div class="info-item">
+                    <i class="fas fa-book"></i>
+                    <span>Môn: Lịch sử Việt Nam</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>60 câu trắc nghiệm</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Thời gian: Không giới hạn</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="content-wrapper">
+            <div class="exam-controls">
+                <div class="question-counter">
+                    <i class="fas fa-list-ol"></i>
+                    <span id="current-question">0</span>/<span id="total-questions">60</span> câu
+                </div>
+                <div class="control-buttons">
+                    <button class="btn btn-reset" id="reset-btn">
+                        <i class="fas fa-redo"></i> Làm lại
+                    </button>
+                    <button class="btn btn-success" id="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Nộp bài
+                    </button>
+                </div>
+            </div>
+            
+            <div class="questions-container" id="questions-container">
+                <!-- Câu hỏi sẽ được tạo động bằng JavaScript -->
+            </div>
+            
+            <div class="results-container" id="results-container">
+                <div class="results-header">
+                    <h2>Kết quả bài làm</h2>
+                    <div class="score-circle">
+                        <div class="score-value" id="score-value">0</div>
+                        <div class="score-label">điểm</div>
+                    </div>
+                    <h3 id="result-message"></h3>
+                </div>
+                
+                <div class="results-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Tổng số câu:</span>
+                        <span class="detail-value" id="total-questions-result">60</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Số câu đúng:</span>
+                        <span class="detail-value" id="correct-answers">0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Số câu sai:</span>
+                        <span class="detail-value" id="wrong-answers">0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Tỷ lệ đúng:</span>
+                        <span class="detail-value" id="accuracy-rate">0%</span>
+                    </div>
+                </div>
+                
+                <div class="answer-key">
+                    <h3><i class="fas fa-key"></i> Đáp án đúng</h3>
+                    <div class="answer-list" id="answer-key">
+                        <!-- Đáp án sẽ được tạo động -->
+                    </div>
+                </div>
+                
+                <div class="result-actions">
+                    <button class="btn btn-primary" id="review-btn">
+                        <i class="fas fa-eye"></i> Xem lại bài làm
+                    </button>
+                    <button class="btn btn-reset" id="try-again-btn">
+                        <i class="fas fa-redo"></i> Làm lại từ đầu
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Đề cương ôn tập môn Lịch sử - Trắc nghiệm trực tuyến</p>
+            <p>© 2023 - Phát triển bởi Hệ thống ôn tập trực tuyến</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dữ liệu câu hỏi đã được làm sạch và định dạng đúng
+        const questionsData = [
+            {
+                number: 1,
+                text: "Tháng 10-1947, quân Pháp tiến hành chiến dịch tấn công địa bàn nào sau đây?",
+                options: [
+                    { letter: "A", text: "Sài Gòn." },
+                    { letter: "B", text: "Điện Biên Phủ." },
+                    { letter: "C", text: "Việt Bắc." },
+                    { letter: "D", text: "Cao Bằng." }
+                ]
+            },
+            {
+                number: 2,
+                text: "Trong những năm 1951-1953, quân dân Việt Nam đã mở chiến dịch quân sự nào sau đây?",
+                options: [
+                    { letter: "A", text: "Việt Bắc." },
+                    { letter: "B", text: "Biên giới." },
+                    { letter: "C", text: "Hoà Bình." },
+                    { letter: "D", text: "Điện Biên Phủ." }
+                ]
+            },
+            {
+                number: 3,
+                text: "Chiến dịch Điện Biên Phủ (1954) của quân dân Việt Nam đã",
+                options: [
+                    { letter: "A", text: "đập tan những nỗ lực quân sự của Pháp." },
+                    { letter: "B", text: "buộc Mỹ phải đưa quân vào miền Nam." },
+                    { letter: "C", text: "làm phá sản kế hoạch 'đánh nhanh, thắng nhanh' của Pháp." },
+                    { letter: "D", text: "buộc Pháp và Mỹ tham gia đàm phán tại Hội nghị Pa-ri." }
+                ]
+            },
+            {
+                number: 4,
+                text: "Cuộc chiến đấu ở các đô thị Bắc vĩ tuyến 16 có ý nghĩa như thế nào?",
+                options: [
+                    { letter: "A", text: "Đưa lực lượng kháng chiến bước sang giai đoạn chủ động trên chiến trường chính" },
+                    { letter: "B", text: "Bước đầu làm thất bại kế hoạch 'đánh nhanh thắng nhanh' của Pháp" },
+                    { letter: "C", text: "Buộc Pháp phải ký Hiệp định Giơ-ne-vơ" },
+                    { letter: "D", text: "Làm thất bại âm mưu bao vây, căn cứ Việt Bắc của Pháp" }
+                ]
+            },
+            {
+                number: 5,
+                text: "Kế hoạch 'đánh nhanh thắng nhanh' của Pháp trong chiến tranh xâm lược Việt Nam (1945-1954) hoàn toàn thất bại sau",
+                options: [
+                    { letter: "A", text: "cuộc chiến đấu ở các đô thị Bắc vĩ tuyến 16" },
+                    { letter: "B", text: "Chiến dịch Biên giới thu - đông năm 1950" },
+                    { letter: "C", text: "Chiến dịch Điện Biên Phủ năm 1954" },
+                    { letter: "D", text: "Chiến dịch Việt Bắc thu - đông năm 1947" }
+                ]
+            },
+            {
+                number: 6,
+                text: "Từ giữa năm 1953 đến tháng 5-1954, dựa vào viện trợ của Mỹ, thực dân Pháp đã đề ra và thực hiện kế hoạch nào sau đây nhằm kết thúc chiến tranh ở Việt Nam?",
+                options: [
+                    { letter: "A", text: "Na-va." },
+                    { letter: "B", text: "Do Lát do Tát-xi-nhi." },
+                    { letter: "C", text: "Mác-san." },
+                    { letter: "D", text: "Rơ-ve." }
+                ]
+            },
+            {
+                number: 7,
+                text: "Một trong những thắng lợi mà nhân dân Việt Nam đã giành được trong cuộc kháng chiến chống Pháp (1945-1954) là",
+                options: [
+                    { letter: "A", text: "chiến thắng An Lão." },
+                    { letter: "B", text: "chiến thắng Việt Bắc." },
+                    { letter: "C", text: "chiến thắng Cửa Việt." },
+                    { letter: "D", text: "chiến thắng Vạn Tường." }
+                ]
+            },
+            {
+                number: 8,
+                text: "Một trong những nguyên nhân chủ quan dẫn đến thắng lợi của cuộc kháng chiến chống Pháp (1945-1954) là",
+                options: [
+                    { letter: "A", text: "sự lãnh đạo đúng đắn của Đảng." },
+                    { letter: "B", text: "viện trợ to lớn của Trung Quốc" },
+                    { letter: "C", text: "ba nước Đông Dương đoàn kết." },
+                    { letter: "D", text: "phong trào phản đối chiến tranh." }
+                ]
+            },
+            {
+                number: 9,
+                text: "Cuộc kháng chiến chống Mỹ, cứu nước (1954-1975) của nhân dân Việt Nam diễn ra trong bối cảnh lịch sử nào sau đây?",
+                options: [
+                    { letter: "A", text: "Đất nước tạm thời bị chia cắt." },
+                    { letter: "B", text: "Miền Bắc hoàn thành công nghiệp hóa." },
+                    { letter: "C", text: "Xu thế toàn cầu hóa xuất hiện." },
+                    { letter: "D", text: "Cuộc Chiến tranh lạnh đã kết thúc." }
+                ]
+            },
+            {
+                number: 10,
+                text: "Trong những năm 1961-1965, Mỹ tiến hành chiến lược chiến tranh nào sau đây ở miền Nam Việt Nam?",
+                options: [
+                    { letter: "A", text: "Chiến tranh cục bộ." },
+                    { letter: "B", text: "Chiến tranh đơn phương." },
+                    { letter: "C", text: "Việt Nam hoá chiến tranh." },
+                    { letter: "D", text: "Chiến tranh đặc biệt." }
+                ]
+            },
+            {
+                number: 11,
+                text: "Thắng lợi nào của quân và dân Việt Nam đã buộc Mỹ phải đến đàm phán tại hội nghị Paris?",
+                options: [
+                    { letter: "A", text: "Mậu Thân." },
+                    { letter: "B", text: "Vạn Tường." },
+                    { letter: "C", text: "Núi Thành." },
+                    { letter: "D", text: "Phước Long." }
+                ]
+            },
+            {
+                number: 12,
+                text: "Trong giai đoạn 1954-1958 của cuộc kháng chiến chống Mỹ, cứu nước, nhân dân miền Nam tập trung vào thực hiện nhiệm vụ nào sau đây?",
+                options: [
+                    { letter: "A", text: "đấu tranh chống chế độ Mỹ - Diệm, giữ gìn và phát triển lực lượng cách mạng." },
+                    { letter: "B", text: "kết hợp đấu tranh chính trị hoà bình và khởi nghĩa vũ trang giành chính quyền." },
+                    { letter: "C", text: "chuyển từ đấu tranh chính trị tiến lên Đồng khởi trên khắp các tỉnh miền Nam." },
+                    { letter: "D", text: "đấu tranh chính trị hoà bình để giữ gìn lực lượng, tổ chức tổng tuyển cử tự do." }
+                ]
+            },
+            {
+                number: 13,
+                text: "Cuộc kháng chiến chống Mỹ, cứu nước của Việt Nam diễn ra trong bối cảnh nào sau đây?",
+                options: [
+                    { letter: "A", text: "Hoà hoãn Đông - Tây là xu thế chủ đạo trong quan hệ quốc tế." },
+                    { letter: "B", text: "Trật tự thế giới hai cực I-an-ta từng bước hình thành." },
+                    { letter: "C", text: "Các cuộc chiến tranh cục bộ đã chấm dứt." },
+                    { letter: "D", text: "Chiến tranh lạnh diễn ra ngày càng căng thẳng." }
+                ]
+            },
+            {
+                number: 14,
+                text: "Sau thất bại của chiến lược Chiến tranh cục bộ (1965-1968) ở miền Nam Việt Nam, Mỹ chuyển sang áp dụng chiến lược chiến tranh nào sau đây?",
+                options: [
+                    { letter: "A", text: "Chiến tranh đặc biệt." },
+                    { letter: "B", text: "Việt Nam hoá chiến tranh." },
+                    { letter: "C", text: "Chiến tranh đơn phương." },
+                    { letter: "D", text: "Chiến tranh đặc biệt tăng cường." }
+                ]
+            },
+            {
+                number: 15,
+                text: "Chiến thắng nào của quân dân miền Nam đã buộc Mỹ phải tuyên bố 'Mỹ hoá' trở lại cuộc chiến tranh xâm lược ở Việt Nam?",
+                options: [
+                    { letter: "A", text: "Cuộc Tiến công chiến lược năm 1972." },
+                    { letter: "B", text: "Chiến thắng Vạn Tường năm 1965." },
+                    { letter: "C", text: "Cuộc Tổng tiến công và nổi dậy năm 1968." },
+                    { letter: "D", text: "Chiến thắng Đường 14 - Phước Long (1975)." }
+                ]
+            },
+            {
+                number: 16,
+                text: "Trong thời kì 1954-1975, cách mạng Việt Nam có nhiệm vụ hàng đầu là",
+                options: [
+                    { letter: "A", text: "đánh đuổi đế quốc Pháp." },
+                    { letter: "B", text: "thống nhất đất nước." },
+                    { letter: "C", text: "xây dựng chủ nghĩa xã hội." },
+                    { letter: "D", text: "cải cách ruộng đất" }
+                ]
+            },
+            {
+                number: 17,
+                text: "Một trong những hành động thực thi chủ quyền của Chính phủ Việt Nam đối với quần đảo Trường Sa và Hoàng Sa là",
+                options: [
+                    { letter: "A", text: "đưa lực lượng ra thực thi chủ quyền." },
+                    { letter: "B", text: "xây dựng các sân bay quốc tế lớn." },
+                    { letter: "C", text: "đã xây dựng nhiều căn cứ quân sự." },
+                    { letter: "D", text: "cho Mỹ thuê lại các bến cảng ở đáo." }
+                ]
+            },
+            {
+                number: 18,
+                text: "Sau khi lên nắm quyền (4/1975) chính quyền Pôn Pốt đã có hành động nào sau đây?",
+                options: [
+                    { letter: "A", text: "Đi thăm Mỹ để mở rộng quan hệ đối ngoại cho Campuchia." },
+                    { letter: "B", text: "Ủng hộ hết lòng cho công cuộc xây dựng đất nước Việt Nam." },
+                    { letter: "C", text: "Phát động chiến tranh xâm lược biên giới Tây Nam Việt Nam." },
+                    { letter: "D", text: "Liên kết với các nước Đông Nam Á để chống lại Trung Quốc." }
+                ]
+            },
+            {
+                number: 19,
+                text: "Nguyên nhân chủ quan quyết định thắng lợi của hai cuộc chiến tranh bảo vệ biên giới phía Bắc Việt Nam năm 1979 là",
+                options: [
+                    { letter: "A", text: "quân đội Trung Quốc còn yếu" },
+                    { letter: "B", text: "truyền thống dân tộc, yêu nước." },
+                    { letter: "C", text: "sự ủng hộ giúp đỡ của quốc tế" },
+                    { letter: "D", text: "đoàn kết ba nước Đông Dương." }
+                ]
+            },
+            {
+                number: 20,
+                text: "Một trong những hành động khiêu khích, xâm phạm lãnh thổ của chính quyền Pôn-pốt đối với Việt Nam sau ngày 30/4/1975 là",
+                options: [
+                    { letter: "A", text: "tổ chức cho người Khơ-me ở Việt Nam biểu tình." },
+                    { letter: "B", text: "phái biệt kích để xâm nhập vào Hà Nội phá hoại." },
+                    { letter: "C", text: "cho máy bay thả bom để phong tỏa cửa sông lớn." },
+                    { letter: "D", text: "xâm nhập vào vùng biên giới trên đất liền Việt Nam." }
+                ]
+            },
+            {
+                number: 21,
+                text: "Sau khi Trung Quốc tuyên bố rút quân (5/3/1979), tình hình biên giới Việt Trung như thế nào?",
+                options: [
+                    { letter: "A", text: "Trở lại bình thường" },
+                    { letter: "B", text: "Đã yên bình trở lại" },
+                    { letter: "C", text: "Tiếp tục căng thẳng." },
+                    { letter: "D", text: "Liên Xô can thiệp." }
+                ]
+            },
+            {
+                number: 22,
+                text: "Sau năm 1975, nước Cộng hoà xã hội chủ nghĩa Việt Nam quản lí toàn bộ lãnh thổ đất nước, trong đó bao gồm",
+                options: [
+                    { letter: "A", text: "tất cả các đảo trên vùng Biển Đông." },
+                    { letter: "B", text: "tất cả các đảo và quần đảo thuộc vịnh Thái Lan." },
+                    { letter: "C", text: "quần đảo Hoàng Sa và Trường Sa." },
+                    { letter: "D", text: "các đặc khu kinh tế trên bán đảo Đông Dương." }
+                ]
+            },
+            {
+                number: 23,
+                text: "Trong quá trình bảo vệ chủ quyền quốc gia ở Biển Đông, Việt Nam đã luôn kiên định con đường",
+                options: [
+                    { letter: "A", text: "bảo vệ vững chắc chủ quyền và lợi ích khu vực." },
+                    { letter: "B", text: "đấu tranh bằng mọi biện pháp, không đàm phán" },
+                    { letter: "C", text: "đấu tranh bằng các biện pháp phù hợp với luật pháp quốc tế." },
+                    { letter: "D", text: "bảo vệ hoà bình, phù hợp với luật pháp khu vực và quốc tế." }
+                ]
+            },
+            {
+                number: 24,
+                text: "Năm 1950, Đảng và Chính phủ Việt Nam quyết định mở chiến dịch Biên giới không nhằm mục đích nào sau đây?",
+                options: [
+                    { letter: "A", text: "Buộc Pháp phải ký Hiệp định Giơ-ne-vơ" },
+                    { letter: "B", text: "Tiêu hao sinh lực quân Pháp" },
+                    { letter: "C", text: "Khai thông biên giới Việt - Trung" },
+                    { letter: "D", text: "Bảo vệ căn cứ địa Việt Bắc" }
+                ]
+            },
+            {
+                number: 25,
+                text: "Một trong những điểm khác biệt giữa chiến dịch Biên giới thu - đông (1950) với chiến dịch Việt Bắc thu - đông (1947) của quân dân Việt Nam là",
+                options: [
+                    { letter: "A", text: "tinh thần, quyết tâm của dân tộc." },
+                    { letter: "B", text: "có sự chi viện của hậu phương." },
+                    { letter: "C", text: "được sự chi viện của quốc tế." },
+                    { letter: "D", text: "nghệ thuật chiến tranh nhân dân." }
+                ]
+            },
+            {
+                number: 26,
+                text: "Trong cuộc kháng chiến chống Pháp (1945-1954), để đối phó với kế hoạch Na-va, quân đội Việt Nam không có hoạt động nào sau đây?",
+                options: [
+                    { letter: "A", text: "Mở chiến dịch Thượng Lào" },
+                    { letter: "B", text: "Mở chiến dịch Bắc Tây Nguyên" },
+                    { letter: "C", text: "Mở chiến dịch Hồ Chí Minh" },
+                    { letter: "D", text: "Mở chiến dịch Tây Bắc" }
+                ]
+            },
+            {
+                number: 27,
+                text: "Trong cuộc kháng chiến chống Pháp của nhân dân Việt Nam (1946-1954), chiến dịch Biên giới thu - đông năm 1950 không có ý nghĩa nào sau đây?",
+                options: [
+                    { letter: "A", text: "Tiêu hao một phần sinh lực quân Pháp" },
+                    { letter: "B", text: "Buộc Pháp chuyển từ đánh nhanh thắng nhanh sang đánh lâu dài" },
+                    { letter: "C", text: "Khai thông biên giới Việt - Trung," },
+                    { letter: "D", text: "Đưa lực lượng quân đội Việt Nam chuyển sang giai đoạn chủ động trên chiến trường chính" }
+                ]
+            },
+            {
+                number: 28,
+                text: "Nội dung nào thể hiện bước phát triển mới về quân sự trong cuộc kháng chiến chống Pháp của dân tộc Việt Nam giai đoạn từ 1951-1953?",
+                options: [
+                    { letter: "A", text: "Đánh bại kế hoạch Na-va của thực dân Pháp" },
+                    { letter: "B", text: "Mở các chiến dịch giữ vững quyền chủ động trên chiến trường chính" },
+                    { letter: "C", text: "Phản công quân Pháp giành thắng lợi trong chiến dịch Việt Bắc" },
+                    { letter: "D", text: "Đánh bại kế hoạc Rơ-ve của thực dân Pháp" }
+                ]
+            },
+            {
+                number: 29,
+                text: "Một trong những điểm tương đồng về kết quả của chiến dịch Việt Bắc (1947), Biên Giới (1950) và Điện Biên Phủ (1954) là",
+                options: [
+                    { letter: "A", text: "giành quyền chủ động trên chiến trường." },
+                    { letter: "B", text: "tiêu diệt được một bộ phận sinh lực địch." },
+                    { letter: "C", text: "mở rộng căn cứ địa ở Liên khu Năm." },
+                    { letter: "D", text: "tạo điều kiện cho đấu tranh ngoại giao." }
+                ]
+            },
+            {
+                number: 30,
+                text: "Sự kiện nào sau đây trong giai đoạn 1954-1960 đánh dấu bước phát triển nhảy vọt của cách mạng miền Nam?",
+                options: [
+                    { letter: "A", text: "Phong trào Đồng khởi." },
+                    { letter: "B", text: "Phong trào chống phá bình định." },
+                    { letter: "C", text: "Phong trào phá ấp chiến lược." },
+                    { letter: "D", text: "Phong trào 'Ba sẵn sàng'." }
+                ]
+            },
+            {
+                number: 31,
+                text: "Một trong những điểm khác biệt cơ bản giữa chiến lược Chiến tranh cục bộ (1965-1968) với chiến lược Chiến tranh đặc biệt (1961-1965) của Mỹ thực hiện ở miền Nam Việt Nam là",
+                options: [
+                    { letter: "A", text: "lực lượng Mỹ trực tiếp tham chiến." },
+                    { letter: "B", text: "sử dụng phương tiện hiện đại." },
+                    { letter: "C", text: "sử dụng lực lượng cố vấn quân sự Mỹ." },
+                    { letter: "D", text: "dựa vào chính quyền tay sai." }
+                ]
+            },
+            {
+                number: 32,
+                text: "Nội dung nào sau đây phản ánh đúng hoạt động bảo vệ chủ quyền của Việt Nam năm 1988?",
+                options: [
+                    { letter: "A", text: "Chiến đấu chống lại cuộc tấn công xâm lược của Trung Quốc trên đảo Gạc Ma." },
+                    { letter: "B", text: "Tổ chức chiến đấu chống quân xâm lược ở biên giới phía Tây Nam và phía Bắc." },
+                    { letter: "C", text: "Phối hợp với quân dân Cam-pu-chia đẩy mạnh cuộc đấu tranh chống phát xít Nhật." },
+                    { letter: "D", text: "Phản đối Trung Quốc đưa dàn khoan Hải Dương - 981 đến vùng biển Việt Nam." }
+                ]
+            },
+            {
+                number: 33,
+                text: "Nội dung nào sau đây phản ánh đúng tình hình quan hệ Việt - Trung từ giữa năm 1975?",
+                options: [
+                    { letter: "A", text: "Vẫn duy trì rất tốt đẹp." },
+                    { letter: "B", text: "Dần trở nên căng thẳng." },
+                    { letter: "C", text: "Chuyển sang đối đầu." },
+                    { letter: "D", text: "Trung Quốc xâm lược." }
+                ]
+            },
+            {
+                number: 34,
+                text: "Bài học được rút ra từ các cuộc kháng chiến bảo vệ Tổ quốc từ năm 1945 đến nay vẫn có giá trị to lớn đối với công cuộc xây dựng đất nước hiện nay là",
+                options: [
+                    { letter: "A", text: "tăng cường khối đại đoàn kết toàn dân." },
+                    { letter: "B", text: "liên minh chặt chẽ với Liên Xô, Trung Quốc." },
+                    { letter: "C", text: "gia nhập vào các khối liên minh quân sự." },
+                    { letter: "D", text: "thiết lập quan hệ chiến lược với các nước." }
+                ]
+            },
+            {
+                number: 35,
+                text: "Cuộc kháng chiến chống Pháp (1945-1954) và cuộc kháng chiến chống Mỹ (1954-1975) của Việt Nam diễn ra trong bối cảnh",
+                options: [
+                    { letter: "A", text: "Phát xít Nhật nhảy vào Đông Dương" },
+                    { letter: "B", text: "Chịu sự tác động của chiến tranh lạnh" },
+                    { letter: "C", text: "Đất nước tạm thời bị chia cắt thành hai miền Bắc - Nam" },
+                    { letter: "D", text: "Chính quyền dân chủ nhân dân được gây dựng trong cả nước" }
+                ]
+            },
+            {
+                number: 37,
+                text: "Thực hiện cuộc chiến tranh phá hoại miền Bắc Việt Nam lần 2 (1969-1972), chính quyền Mỹ nhằm mục tiêu nào khác so với cuộc chiến tranh phá hoại lần 1 (1964-1968)?",
+                options: [
+                    { letter: "A", text: "Tạo sức ép với Việt Nam trên bàn đàm phán ở Hội nghị Pa-ri." },
+                    { letter: "B", text: "Ngăn chặn sự chi viện của miền Bắc cho cách mạng miền Nam." },
+                    { letter: "C", text: "Làm lung lay ý chí quyết tâm chống Mỹ, cứu nước của nhân dân Việt Nam." },
+                    { letter: "D", text: "Chống phá công cuộc xây dựng chủ nghĩa xã hội ở miền Bắc." }
+                ]
+            },
+            {
+                number: 38,
+                text: "Nội dung phản ánh không đúng tình hình của mối quan hệ Việt-Trung từ giữa năm 1975 là Trung Quốc",
+                options: [
+                    { letter: "A", text: "chấm dứt viện trợ kinh tế." },
+                    { letter: "B", text: "rút các chuyên gia về nước." },
+                    { letter: "C", text: "xâm phạm khu vực biên giới." },
+                    { letter: "D", text: "ủng hộ Việt Nam toàn diện." }
+                ]
+            },
+            {
+                number: 39,
+                text: "Các hoạt động đấu tranh bảo vệ, thực thi chủ quyền và các lợi ích hợp pháp của nước Cộng hoà xã hội chủ nghĩa Việt Nam ở Biển Đông không bao gồm nội dung nào sau đây?",
+                options: [
+                    { letter: "A", text: "Từ chối tham gia Công ước của Liên hợp quốc về Luật biển." },
+                    { letter: "B", text: "Thành lập các huyện đảo Trường Sa và Hoàng Sa." },
+                    { letter: "C", text: "Tổ chức nghiên cứu để cung cấp các bằng chứng về chủ quyền." },
+                    { letter: "D", text: "Kiên quyết đấu tranh với các hoạt động vi phạm chủ quyền." }
+                ]
+            },
+            {
+                number: 40,
+                text: "Các cuộc đấu tranh bảo vệ Tổ quốc từ năm 1945 để lại bài học kinh nghiệm nào sau đây cho công cuộc bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa?",
+                options: [
+                    { letter: "A", text: "Phát huy yếu tố ngoại lực làm nhân tố quyết định sức mạnh bảo vệ Tổ quốc." },
+                    { letter: "B", text: "Kết hợp sức mạnh dân tộc và sức mạnh thời đại, kết hợp xây dựng và bảo vệ." },
+                    { letter: "C", text: "Luôn đẩy mạnh các hoạt động ngoại giao để mở đường cho đấu tranh quân sự." },
+                    { letter: "D", text: "Tăng cường sức mạnh quân sự là biện pháp duy nhất có thể bảo vệ Tổ quốc." }
+                ]
+            },
+            {
+                number: 41,
+                text: "Sự kiện nào sau đây đã mở ra thời cơ tiến công chiến lược giải phóng hoàn toàn Miền Nam Việt Nam?",
+                options: [
+                    { letter: "A", text: "Chiến thắng Đường 14 - Phước Long (1-1975)." },
+                    { letter: "B", text: "Trận 'Điện Biên Phủ trên không' (1972)." },
+                    { letter: "C", text: "Chiến dịch Tây Nguyên (3-1975)." },
+                    { letter: "D", text: "Chiến dịch Huế - Đà Nẵng (3-1975)" }
+                ]
+            },
+            {
+                number: 42,
+                text: "Trong công cuộc bảo vệ chủ quyền biển, đảo của Tổ quốc Việt Nam hiện nay, có thể vận dụng bài học kinh nghiệm lịch sử nào sau đây?",
+                options: [
+                    { letter: "A", text: "Trong quá trình đàm phán, tuyệt đối không nhân nhượng đối phương." },
+                    { letter: "B", text: "Lấy đấu tranh quân sự làm chủ đạo, kết hợp với đấu tranh ngoại giao." },
+                    { letter: "C", text: "Trong mọi hoàn cảnh, nắm vững quan điểm 'dĩ bất biến, ứng vạn biến'." },
+                    { letter: "D", text: "Chỉ sử dụng biện pháp hoà bình khi nhún nhường không có kết quả." }
+                ]
+            },
+            {
+                number: 43,
+                text: "Nội dung nào không phản ánh đúng bối cảnh diễn ra cuộc kháng chiến chống Pháp của nhân dân Việt Nam (1946-1954)?",
+                options: [
+                    { letter: "A", text: "Nước Việt Nam Dân chủ Cộng hòa gặp vô vàn khó khăn" },
+                    { letter: "B", text: "Chế độ thực dân phong kiến đè nén dân dân" },
+                    { letter: "C", text: "Phong trào giải phóng dân tộc ở các thuộc địa trên thế giới dâng cao" },
+                    { letter: "D", text: "Nhân dân Việt Nam đã lên làm chủ chính quyền" }
+                ]
+            },
+            {
+                number: 44,
+                text: "Nội dung nào không phản ánh đúng bối cảnh quốc tế khi Đảng và Chính phủ Việt Nam phát động toàn quốc kháng chiến chống Pháp năm 1946?",
+                options: [
+                    { letter: "A", text: "Chủ nghĩa xã hội đang dần trở thành hệ thống trên thế giới" },
+                    { letter: "B", text: "Trật tự hai cực Ianta hình thành chi phối quan hệ quốc tế" },
+                    { letter: "C", text: "Chủ nghĩa phát xít ra đời và nguy cơ chiến tranh thế giới bùng nổ" },
+                    { letter: "D", text: "Nhân dân các nước tư bản phản đối chiến tranh" }
+                ]
+            },
+            {
+                number: 45,
+                text: "Cuộc chiến đấu ở các đô thị Bắc vĩ tuyến 16 có ý nghĩa như thế nào?",
+                options: [
+                    { letter: "A", text: "Đưa lực lượng kháng chiến bước sang giai đoạn chủ động trên chiến trường chính" },
+                    { letter: "B", text: "Bước đầu làm thất bại kế hoạch 'đánh nhanh thắng nhanh' của Pháp" },
+                    { letter: "C", text: "Buộc Pháp phải ký Hiệp định Giơ-ne-vơ" },
+                    { letter: "D", text: "Làm thất bại âm mưu bao vây, căn cứ Việt Bắc của Pháp" }
+                ]
+            },
+            {
+                number: 46,
+                text: "Kế hoạch 'đánh nhanh thắng nhanh' của Pháp trong chiến tranh xâm lược Việt Nam (1945-1954) hoàn toàn thất bại sau",
+                options: [
+                    { letter: "A", text: "cuộc chiến đấu ở các đô thị Bắc vĩ tuyến 16" },
+                    { letter: "B", text: "Chiến dịch Biên giới thu - đông năm 1950" },
+                    { letter: "C", text: "Chiến dịch Điện Biên Phủ năm 1954" },
+                    { letter: "D", text: "Chiến dịch Việt Bắc thu - đông năm 1947" }
+                ]
+            },
+            {
+                number: 47,
+                text: "Năm 1950, Đảng và Chính phủ Việt Nam quyết định mở chiến dịch Biên giới không nhằm mục đích nào sau đây?",
+                options: [
+                    { letter: "A", text: "Buộc Pháp phải ký Hiệp định Giơ-ne-vơ" },
+                    { letter: "B", text: "Tiêu hao sinh lực quân Pháp" },
+                    { letter: "C", text: "Khai thông biên giới Việt - Trung" },
+                    { letter: "D", text: "Bảo vệ căn cứ địa Việt Bắc" }
+                ]
+            },
+            {
+                number: 48,
+                text: "Chính quyền Sài Gòn có thái độ như thế nào sau Hiệp định Pa-ri (1973)?",
+                options: [
+                    { letter: "A", text: "Phá hoại Hiệp định Pa-ri, xâm lấn vùng giải phóng" },
+                    { letter: "B", text: "Tiếp tục đàm phán với quân giải phóng" },
+                    { letter: "C", text: "Chấp nhận những điều khoản của Hiệp định Pa-ri" },
+                    { letter: "D", text: "Nhanh chóng đầu hàng quân giải phóng" }
+                ]
+            },
+            {
+                number: 49,
+                text: "Một trong những nhiệm vụ của quân dân miền Nam Việt Nam trong giai đoạn 1973-1975 là",
+                options: [
+                    { letter: "A", text: "chống chiến lược 'Chiến tranh đặc biệt' của Mỹ" },
+                    { letter: "B", text: "chống các cuộc hành quân 'bình định - lấn chiếm' của quân đội Sài Gòn" },
+                    { letter: "C", text: "chống thực dân Pháp và phát xít Nhật" },
+                    { letter: "D", text: "xây dựng cơ sở vật chất - kỹ thuật của chủ nghĩa xã hội" }
+                ]
+            },
+            {
+                number: 50,
+                text: "Chiến thắng Đường 14 - Phước Long (6/1/1976) của quân dân miền Nam Việt Nam không có ý nghĩa nào sau đây?",
+                options: [
+                    { letter: "A", text: "Thăm dò được thực lực quân đội Sài Gòn" },
+                    { letter: "B", text: "Thăm dò được phản ứng của Mỹ" },
+                    { letter: "C", text: "Đưa cách mạng miền Nam từ thế giữ gìn lực lượng sang thế tiến công" },
+                    { letter: "D", text: "Củng cố thêm quyết tâm giải phóng miền Nam trong năm 1975 của Bộ Chính trị" }
+                ]
+            },
+            {
+                number: 51,
+                text: "Cuộc Tổng tiến công và nổi dậy Xuân 1975 không trải qua chiến dịch nào sau đây?",
+                options: [
+                    { letter: "A", text: "Chiến dịch Hồ Chí Minh" },
+                    { letter: "B", text: "Chiến dịch Điện Biên Phủ" },
+                    { letter: "C", text: "Chiến dịch Huế - Đà Nẵng" },
+                    { letter: "D", text: "Chiến dịch Tây Nguyên" }
+                ]
+            },
+            {
+                number: 52,
+                text: "Sau năm 1975, nhân dân Việt Nam tiến hành cuộc đấu tranh bảo vệ Tổ quốc ở vùng biên giới Tây Nam chống lại kẻ thù nào sau đây?",
+                options: [
+                    { letter: "A", text: "Quân Pôn Pốt." },
+                    { letter: "B", text: "Đế quốc Mỹ." },
+                    { letter: "C", text: "Thực dân Pháp." },
+                    { letter: "D", text: "Phát xít Nhật." }
+                ]
+            },
+            {
+                number: 53,
+                text: "Trong cuộc chiến đấu bảo vệ Tổ quốc vùng biên giới phía Bắc (1979-1989), quân dân Việt Nam phải đối phó chống lại âm mưu nào sau đây của đối phương?",
+                options: [
+                    { letter: "A", text: "Hoa quân nhập Việt." },
+                    { letter: "B", text: "Chinh phục từng gói nhỏ." },
+                    { letter: "C", text: "Giành đất, dành dân." },
+                    { letter: "D", text: "Đánh nhanh, thắng nhanh." }
+                ]
+            },
+            {
+                number: 54,
+                text: "Địa bàn nào sau đây là một trong những mặt trận quyết liệt nhất trong cuộc chiến đấu bảo vệ Tổ quốc ở vùng biên giới phía Bắc (1979-1989) của quân dân Việt Nam?",
+                options: [
+                    { letter: "A", text: "Thổ Chu." },
+                    { letter: "B", text: "Vị Xuyên." },
+                    { letter: "C", text: "Tây Ninh." },
+                    { letter: "D", text: "Hà Tiên." }
+                ]
+            },
+            {
+                number: 55,
+                text: "Trong việc tiến công truy kích quân đội Khơ-me Đỏ đến Thủ đô Phnôm Pênh (Cam-pu-chia), quân dân Việt Nam đã thực hiện",
+                options: [
+                    { letter: "A", text: "chủ trương đánh chắc, tiến chắc." },
+                    { letter: "B", text: "quyền tự vệ chính đáng." },
+                    { letter: "C", text: "chủ trương đánh điểm, diệt viện" },
+                    { letter: "D", text: "quyền phòng thủ trên biển." }
+                ]
+            },
+            {
+                number: 56,
+                text: "Sau năm 1975, nước Cộng hoà xã hội chủ nghĩa Việt Nam quản lí toàn bộ lãnh thổ đất nước, trong đó bao gồm",
+                options: [
+                    { letter: "A", text: "tất cả các đảo trên vùng Biển Đông." },
+                    { letter: "B", text: "tất cả các đảo và quần đảo thuộc vịnh Thái Lan." },
+                    { letter: "C", text: "quần đảo Hoàng Sa và Trường Sa." },
+                    { letter: "D", text: "các đặc khu kinh tế trên bán đảo Đông Dương." }
+                ]
+            },
+            {
+                number: 57,
+                text: "Một trong những hành động thực thi chủ quyền của Chính phủ Việt Nam đối với quần đảo Trường Sa và Hoàng Sa là",
+                options: [
+                    { letter: "A", text: "đưa lực lượng ra thực thi chủ quyền." },
+                    { letter: "B", text: "xây dựng các sân bay quốc tế lớn." },
+                    { letter: "C", text: "đã xây dựng nhiều căn cứ quân sự." },
+                    { letter: "D", text: "cho Mỹ thuê lại các bến cảng ở đáo." }
+                ]
+            },
+            {
+                number: 58,
+                text: "Sau khi lên nắm quyền (4/1975) chính quyền Pôn Pốt đã có hành động nào sau đây?",
+                options: [
+                    { letter: "A", text: "Đi thăm Mỹ để mở rộng quan hệ đối ngoại cho Campuchia." },
+                    { letter: "B", text: "Ủng hộ hết lòng cho công cuộc xây dựng đất nước Việt Nam." },
+                    { letter: "C", text: "Phát động chiến tranh xâm lược biên giới Tây Nam Việt Nam." },
+                    { letter: "D", text: "Liên kết với các nước Đông Nam Á để chống lại Trung Quốc." }
+                ]
+            },
+            {
+                number: 59,
+                text: "Sau Đại thắng mùa Xuân năm 1975, công cuộc xây dựng và bảo vệ Tổ quốc ở Việt Nam có thuận lợi cơ bản nào sau đây?",
+                options: [
+                    { letter: "A", text: "Đất nước đã phát triển, Việt Nam trở thành nước có thu nhập cao." },
+                    { letter: "B", text: "Xu thế hoà hoãn Đông - Tây diễn ra, thế giới không còn xung đột." },
+                    { letter: "C", text: "Đất nước đã thống nhất, cùng tiến lên xây dựng chủ nghĩa xã hội." },
+                    { letter: "D", text: "Các nước đế quốc đã từ bỏ âm mưu chống phá dân tộc Việt Nam." }
+                ]
+            },
+            {
+                number: 60,
+                text: "Địa bàn nào sau đây là một trong những mặt trận quyết liệt nhất trong cuộc chiến đấu bảo vệ Tổ quốc ở vùng biên giới phía Bắc (1979-1989) của quân dân Việt Nam?",
+                options: [
+                    { letter: "A", text: "Thổ Chu." },
+                    { letter: "B", text: "Vị Xuyên." },
+                    { letter: "C", text: "Tây Ninh." },
+                    { letter: "D", text: "Hà Tiên." }
+                ]
+            }
+        ];
+
+        // Đáp án đúng cho 60 câu hỏi
+        const correctAnswers = {
+            1: "C", 2: "C", 3: "A", 4: "B", 5: "D",
+            6: "A", 7: "B", 8: "A", 9: "A", 10: "D",
+            11: "A", 12: "A", 13: "D", 14: "B", 15: "A",
+            16: "B", 17: "A", 18: "C", 19: "B", 20: "D",
+            21: "C", 22: "C", 23: "C", 24: "A", 25: "C",
+            26: "C", 27: "B", 28: "B", 29: "B", 30: "A",
+            31: "A", 32: "A", 33: "B", 34: "A", 35: "B",
+            37: "A", 38: "D", 39: "A", 40: "B", 41: "C",
+            42: "C", 43: "B", 44: "C", 45: "B", 46: "D",
+            47: "A", 48: "A", 49: "B", 50: "C", 51: "B",
+            52: "A", 53: "D", 54: "B", 55: "B", 56: "C",
+            57: "A", 58: "C", 59: "C", 60: "B"
+        };
+
+        // Biến toàn cục
+        let userAnswers = {};
+
+        // Hàm hiển thị câu hỏi
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            
+            questionsData.forEach(question => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question-item';
+                questionElement.id = `question-${question.number}`;
+                
+                let optionsHTML = '';
+                question.options.forEach(option => {
+                    const isSelected = userAnswers[question.number] === option.letter;
+                    optionsHTML += `
+                        <div class="option ${isSelected ? 'selected' : ''}" data-question="${question.number}" data-option="${option.letter}">
+                            <div class="option-letter">${option.letter}</div>
+                            <div class="option-text">${option.text}</div>
+                        </div>
+                    `;
+                });
+                
+                questionElement.innerHTML = `
+                    <div class="question-number">${question.number}</div>
+                    <div class="question-text">${question.text}</div>
+                    <div class="options-container">
+                        ${optionsHTML}
+                    </div>
+                `;
+                
+                container.appendChild(questionElement);
+            });
+            
+            // Thêm sự kiện click cho các đáp án
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionNum = parseInt(this.getAttribute('data-question'));
+                    const optionLetter = this.getAttribute('data-option');
+                    
+                    // Xóa lựa chọn trước đó cho câu hỏi này
+                    document.querySelectorAll(`.option[data-question="${questionNum}"]`).forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Thêm lự chọn mới
+                    this.classList.add('selected');
+                    
+                    // Lưu đáp án người dùng chọn
+                    userAnswers[questionNum] = optionLetter;
+                    
+                    // Cập nhật số câu đã làm
+                    updateProgress();
+                });
+            });
+            
+            // Cập nhật tiến độ
+            updateProgress();
+        }
+
+        // Hàm cập nhật tiến độ
+        function updateProgress() {
+            const answeredCount = Object.keys(userAnswers).length;
+            document.getElementById('current-question').textContent = answeredCount;
+        }
+
+        // Hàm nộp bài
+        function submitExam() {
+            const answeredCount = Object.keys(userAnswers).length;
+            
+            if (answeredCount < questionsData.length) {
+                if (!confirm(`Bạn mới trả lời ${answeredCount}/${questionsData.length} câu. Bạn có chắc chắn muốn nộp bài không?`)) {
+                    return;
+                }
+            }
+            
+            // Tính điểm
+            let correctCount = 0;
+            questionsData.forEach(question => {
+                const userAnswer = userAnswers[question.number];
+                const correctAnswer = correctAnswers[question.number];
+                
+                if (userAnswer === correctAnswer) {
+                    correctCount++;
+                }
+            });
+            
+            // Tính điểm (thang điểm 10)
+            const score = (correctCount / questionsData.length * 10).toFixed(1);
+            const accuracy = ((correctCount / questionsData.length) * 100).toFixed(1);
+            
+            // Hiển thị kết quả
+            document.getElementById('score-value').textContent = score;
+            document.getElementById('correct-answers').textContent = correctCount;
+            document.getElementById('wrong-answers').textContent = questionsData.length - correctCount;
+            document.getElementById('accuracy-rate').textContent = `${accuracy}%`;
+            document.getElementById('total-questions-result').textContent = questionsData.length;
+            
+            // Hiển thị thông báo kết quả
+            let message = '';
+            if (parseFloat(score) >= 8) {
+                message = 'Xuất sắc! Bạn có kiến thức lịch sử rất tốt!';
+            } else if (parseFloat(score) >= 6.5) {
+                message = 'Khá tốt! Hãy ôn tập thêm một chút nữa!';
+            } else if (parseFloat(score) >= 5) {
+                message = 'Đạt yêu cầu! Cần ôn tập nhiều hơn!';
+            } else {
+                message = 'Cần cố gắng nhiều hơn! Hãy ôn tập kỹ hơn!';
+            }
+            document.getElementById('result-message').textContent = message;
+            
+            // Hiển thị đáp án đúng
+            renderAnswerKey();
+            
+            // Hiển thị kết quả, ẩn câu hỏi
+            document.getElementById('questions-container').style.display = 'none';
+            document.getElementById('results-container').style.display = 'block';
+            
+            // Cuộn lên đầu trang
+            window.scrollTo(0, 0);
+        }
+
+        // Hàm hiển thị đáp án đúng
+        function renderAnswerKey() {
+            const container = document.getElementById('answer-key');
+            container.innerHTML = '';
+            
+            questionsData.forEach(question => {
+                const userAnswer = userAnswers[question.number];
+                const correctAnswer = correctAnswers[question.number];
+                const isCorrect = userAnswer === correctAnswer;
+                
+                const answerItem = document.createElement('div');
+                answerItem.className = 'answer-item';
+                answerItem.innerHTML = `
+                    <span>Câu ${question.number}:</span>
+                    <span class="correct-answer">${correctAnswer}</span>
+                    <span>${isCorrect ? '✓' : '✗'}</span>
+                `;
+                
+                container.appendChild(answerItem);
+            });
+        }
+
+        // Hàm làm lại bài
+        function resetExam() {
+            if (confirm('Bạn có chắc chắn muốn làm lại từ đầu? Tất cả câu trả lời sẽ bị xóa.')) {
+                userAnswers = {};
+                renderQuestions();
+                
+                // Hiển thị lại phần câu hỏi, ẩn kết quả
+                document.getElementById('questions-container').style.display = 'block';
+                document.getElementById('results-container').style.display = 'none';
+            }
+        }
+
+        // Hàm xem lại bài làm
+        function reviewExam() {
+            // Hiển thị câu hỏi với đáp án đúng/sai
+            questionsData.forEach(question => {
+                const questionElement = document.getElementById(`question-${question.number}`);
+                const optionsContainer = questionElement.querySelector('.options-container');
+                
+                // Xóa tất cả các option hiện tại
+                optionsContainer.innerHTML = '';
+                
+                // Thêm lại các option với màu sắc đúng/sai
+                question.options.forEach(option => {
+                    const isSelected = userAnswers[question.number] === option.letter;
+                    const isCorrect = correctAnswers[question.number] === option.letter;
+                    
+                    let className = 'option';
+                    if (isCorrect) {
+                        className += ' correct';
+                    } else if (isSelected && !isCorrect) {
+                        className += ' incorrect';
+                    }
+                    
+                    optionsContainer.innerHTML += `
+                        <div class="${className}" data-question="${question.number}" data-option="${option.letter}">
+                            <div class="option-letter">${option.letter}</div>
+                            <div class="option-text">${option.text}</div>
+                        </div>
+                    `;
+                });
+            });
+            
+            // Hiển thị lại phần câu hỏi, ẩn kết quả
+            document.getElementById('questions-container').style.display = 'block';
+            document.getElementById('results-container').style.display = 'none';
+            
+            // Cuộn lên đầu trang
+            window.scrollTo(0, 0);
+        }
+
+        // Khởi tạo khi trang được tải
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hiển thị tổng số câu hỏi
+            document.getElementById('total-questions').textContent = questionsData.length;
+            document.getElementById('total-questions-result').textContent = questionsData.length;
+            
+            // Hiển thị câu hỏi
+            renderQuestions();
+            
+            // Gán sự kiện cho các nút
+            document.getElementById('submit-btn').addEventListener('click', submitExam);
+            document.getElementById('reset-btn').addEventListener('click', resetExam);
+            document.getElementById('review-btn').addEventListener('click', reviewExam);
+            document.getElementById('try-again-btn').addEventListener('click', resetExam);
+        });
+    </script>
+</body>
+</html>
