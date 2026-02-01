@@ -1,4 +1,4 @@
-local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/nhacnen/NV--web/refs/heads/main/deepseek_lua_20260201_055e10.lua"))()
+local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/nhacnen/NV--web/refs/heads/main/deepseek_lua_20260201_455c46.lua"))()
 
 
 local Window = Library:CreateWindow('SCODE/Prenium')
